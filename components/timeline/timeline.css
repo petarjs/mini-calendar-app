@@ -1,0 +1,21 @@
+.timeline {
+  float: left;
+  width: 50px;
+  text-align: right;
+}
+
+.hour {
+  color: #999999;
+  font-weight: 400;
+  line-height: 29px;
+  font-size: 16px;
+}
+
+.hour > small {
+  color: #DEDEDE;
+}
+
+.hour.hour--small {
+  color: #DEDEDE;
+  font-size: 12px;
+}

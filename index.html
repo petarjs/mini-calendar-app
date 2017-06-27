@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>HTECH Calendar Project</title>
+  <meta name="description" content="A Simple JS Calendar">
+  <meta name="author" content="Petar Slovic">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="components/app/app.css">
+  <link rel="stylesheet" href="components/calendar/calendar.css">
+  <link rel="stylesheet" href="components/timeline/timeline.css">
+  <link rel="stylesheet" href="components/event-list/event-list.css">
+  <link rel="stylesheet" href="components/event/event.css">
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <!--[if lt IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div class="app"></div>
+
+  <template id="event-list-template">
+    <div class="event-list-container">
+      <div class="event-list-container__hours">
+        {{#each vm.hours}}
+          <div class="event-list-container__hour"></div>
+        {{/each}}
+      </div>
+      <div class="event-list">
+        {{#each vm.events}}
+          {{ renderComponent this }}
+        {{/each}}
+      </div>
+    </div>
+  </template>
+
+  <template id="event-template">
+    <div class="event" style="{{ getEventStyle vm }}">
+      <div class="event__title">
+        {{#if vm.title}}
+          {{ vm.title }}
+        {{else}}
+          Simple Item
+        {{/if}}
+      </div>
+      <div class="event__location">
+        {{#if vm.location}}
+          {{ vm.location }}
+        {{else}}
+          Simple Locaiton
+        {{/if}}
+
+        {{ vm.start }} - {{ vm.end }}
+      </div>
+    </div>
+  </template>
+
+  <template id="timeline-template">
+    <div class="timeline">
+      {{#each vm.ticks}}
+        {{#ifEven @index}}
+          <div class="hour">
+            {{timelineHour @index}}
+          </div>
+        {{else}}
+          <div class="hour hour--small">
+            {{timelineHourMinute @index}}
+          </div>
+        {{/ifEven}}
+      {{/each}}
+    </div>
+  </template>
+
+  <template id="calendar-template">
+    <div class="calendar">
+      <h1>Calendar</h1>
+      {{ renderComponent vm.timeline }}
+      {{ renderComponent vm.eventList }}
+    </div>
+  </template>
+  
+  <!-- Vendor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <!-- Core -->
+  <script src="js/handlebars-helpers.js"></script>
+  <script src="mixins/renderable.js"></script>
+  <script src="mixins/changeable.js"></script>
+  <script src="mixins/precompileable.js"></script>
+  <script src="services/date-helpers.js"></script>
+  <script src="services/event-layout.js"></script>
+
+  <!-- Components -->
+  <script src="components/timeline/timeline.js"></script>
+  <script src="components/event/event.js"></script>
+  <script src="components/event-list/event-list.js"></script>
+  <script src="components/calendar/calendar.js"></script>
+  <script src="components/app/app.js"></script>
+
+  <!-- Main -->
+  <script src="js/main.js"></script>
+</body>
+</html>
